@@ -1,0 +1,88 @@
+<!-- 头部 -->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置页面标题 -->
+  <title>
+    Iceland
+  </title>
+  <!-- 加载js文件 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap@4.6.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
+  <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+</head>
+
+<body>
+<!-- 设置卡片 -->
+<div class="d-flex justify-content-center">
+  <div class="row min-vh-100 align-items-center">
+    <div class="card shadow-sm text-center rounded-lg mt-1">
+      <div class="card-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-fill"
+             viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+                d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+        </svg>
+      </div>
+      <div class="card-body" style="width: 29rem; height: 48rem">
+        <div class="card-body px-md-4 py-4">
+          <div class="mb-4 text-left">
+            <h4 class="card-title">注册</h4>
+            <p class="text-muted">注册新的账号加入我们吧.</p>
+          </div>
+          <form method="POST" action="{{ url_for('user.register') }}">
+            <!-- 用户名 -->
+            <div class="form-group text-left">
+              <label for="exampleInputUsername" class="text-muted">用户名</label>
+              <input type="text" class="form-control form-control-lg rounded-lg" id="exampleInputUsername" aria-describedby="emailHelp" name="username" placeholder="Username">
+            </div>
+            <!-- 邮箱 -->
+            <div class="form-group text-left">
+              <label for="exampleInputEmail" class="text-muted">邮箱</label>
+              <input type="email" class="form-control form-control-lg rounded-lg" id="exampleInputEmail" name="email" placeholder="@163.com">
+            </div>
+            <!-- 获取验证码 -->
+            <div class="form-group text-left">
+              <label for="exampleInputCaptcha" class="text-muted">验证码</label>
+              <div class="input-group">
+                <input type="text" class="form-control form-control-lg rounded-lg" name="captcha">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="captcha-btn">获取验证码</button>
+                </div>
+              </div>
+            </div>
+            <!-- 密码 -->
+            <div class="form-group text-left">
+              <label for="exampleInputPassword1" class="text-muted">密码</label>
+              <input type="password" class="form-control form-control-lg rounded-lg" id="exampleInputPassword1" name="password" placeholder="Passwd">
+            </div>
+            <!-- 确认密码 -->
+            <div class="form-group text-left">
+              <label for="exampleInputPassword1" class="text-muted">确认密码</label>
+              <input type="password" class="form-control form-control-lg rounded-lg" name="password_confirm" placeholder="Confirm Passwd">
+            </div>
+            <!-- 提示错误消息 -->
+            {% for message in get_flashed_messages() %}
+              <div class="form-group">
+                <div class="text-danger">{{ message }}</div>
+              </div>
+            {% endfor %}
+            <!-- 登入按钮 -->
+            <div class="form-group mt-5">
+              <button type="submit" class="btn btn-primary btn-block btn-lg rounded-lg">立即注册</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <small>
+          @Iceland
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 设置卡片 -->
+</body>

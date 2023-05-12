@@ -1,0 +1,434 @@
+<!-- 头部 -->
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置页面标题 -->
+  <title>
+    Iceland
+  </title>
+  <!-- 加载css, js等文件 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap@4.6.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/init.css') }}">
+  <script src="{{ url_for('static', filename='jquery/jquery.3.6.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap/popper.1.16.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap/bootstrap.4.6.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/Bullet_frame.js') }}"></script>
+  <script src="{{ url_for('static', filename='echarts/echarts.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='echarts/background.js') }}"></script>
+</head>
+
+<!-- 主题部分 -->
+<body>
+<!-- 导航条 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" id="mainNav">
+  <div class="container-fluid center">
+    <a class="navbar-brand ml-5 pl-5" href="{{ url_for('qa.index') }}">
+      <strong>Teng</strong>
+      PQ
+    </a>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav ml-auto my-2 my-lg-0 navbar-nav-scroll mr-5 pr-3" style="max-height: 100px;">
+        <div class="row">
+          <div class="col">
+            <a class="nav-link" type="button" id="Bullet_frame1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-bell-fill"
+                   viewBox="0 0 16 16">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+              </svg>
+            </a>
+            <!-- 设置轻量弹框 -->
+            <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+              <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true"
+                   data-delay="2000">
+                <div class="toast-header">
+                  <img src=".." class="rounded mr-2" alt="">
+                  <strong class="mr-auto">Bootstrap</strong>
+                  <small>11 mins ago</small>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  Hello, world! 该功能还在开发中哦~
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 设置轻量弹框 -->
+          <div class="col">
+            <a class="nav-link dropdown-toggle active text-muted" href="" id="NavbarDropdown" role="button"
+               data-toggle="dropdown"
+               aria-expanded="false">{{ user.username }}</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">个人信息</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ url_for('user.logout') }}">退出登入</a>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- 导航条 -->
+
+<!-- 次导航条 -->
+<nav class="nav nav-tabs bg-white" style="height:50px">
+  <div class="container-fluid center">
+    <div class="row px-5 mx-5">
+      <div class="col">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist" style="line-height: 32px">
+          <a class="nav-link active text-muted" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+            <span class="nav-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+              </svg>
+            </span>
+            <span style="font-size: 15px">Home</span>
+          </a>
+          <a class="nav-link text-muted" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+            <span class="nav-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+                <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+                <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z"/>
+              </svg>
+            </span>
+            <span style="font-size: 15px">分析</span>
+          </a>
+          <a class="nav-link text-muted" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+            <span class="nav-link-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-hdd" viewBox="0 0 16 16">
+                <path d="M4.5 11a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM3 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"/>
+                <path d="M16 11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V9.51c0-.418.105-.83.305-1.197l2.472-4.531A1.5 1.5 0 0 1 4.094 3h7.812a1.5 1.5 0 0 1 1.317.782l2.472 4.53c.2.368.305.78.305 1.198V11zM3.655 4.26 1.592 8.043C1.724 8.014 1.86 8 2 8h12c.14 0 .276.014.408.042L12.345 4.26a.5.5 0 0 0-.439-.26H4.094a.5.5 0 0 0-.44.26zM1 10v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/>
+              </svg>
+            </span>
+            <span style="font-size: 15px">监控</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- 次导航条 -->
+
+<!-- 页面内容 -->
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="container-fluid center">
+      <div class="row mt-4 px-5 mx-5 m-3">
+        <div class="col-lg-4">
+          <div class="card shadow-sm mb-2">
+            <div class="card-body">
+              <div class="text-muted" style="font-size: 15px">
+                <strong>饰品数量</strong>
+              </div>
+              <div class="h3 mb-3">999</div>
+              <div class="d-flex mb-1 text-muted" style="font-size: 15px">
+                <div>相比于昨日</div>
+                <div class="ml-auto">
+                  <span style="color:#0ea40e; font-size: 16px">↑ 16%</span>
+                </div>
+              </div>
+              <!-- 当日爬取饰品数量 -->
+              <div id="DailyQuantity-line" style="height: 60px"></div>
+              <script type="text/javascript">
+                  var DailyQuantitt_Line_Chart = echarts.init(document.getElementById('DailyQuantity-line'), 'westeros');
+                  var DailyQuantity_Line_Chart_Option = {
+                      tooltip: {
+                          trigger: 'axis'
+                      },
+                      xAxis: {
+                          show: false,
+                          type: 'category',
+                          data: ['1', '2', '3', '4']
+                      },
+                      yAxis: {
+                          show: false,
+                          type: 'value',
+                      },
+                      grid: {
+                          bottom: '55%',
+                      },
+                      series: [
+                          {
+                              name: '数量',
+                              data: [600, 930, 850, 1500],
+                              type: 'line',
+                              smooth: true,
+                              showSymbol: false,
+                              lineStyle: {
+                                  color: '#387fcb',
+                                  shadowColor: 'rgba(0, 0, 0, 0.08)',
+                                  shadowBlur: 5,
+                                  shadowOffsetY: 5
+                              }
+                          }
+                      ]
+                  }
+                  DailyQuantity_Line_Chart_Option && DailyQuantitt_Line_Chart.setOption(DailyQuantity_Line_Chart_Option);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow-sm mb-2">
+            <div class="card-body">
+              <div class="text-muted" style="font-size: 15px">
+                <strong>饰品总金额</strong>
+              </div>
+              <div class="h3 mb-3">¥1314.0</div>
+              <div class="d-flex mb-1 text-muted" style="font-size: 15px">
+                <div>相比于昨日</div>
+                <div class="ml-auto">
+                  <span style="color:#0ea40e; font-size: 16px">↑ 4%</span>
+                </div>
+              </div>
+            </div>
+            <!-- 当日爬取饰品总金额 -->
+            <div id="DailyTotalAmount-line" style="height: 60px"></div>
+            <script type="text/javascript">
+                var DailyTotalAmount_Line_Chart = echarts.init(document.getElementById('DailyTotalAmount-line'), 'westeros');
+                var DailyTotalAmount_Line_Chart_Option = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    xAxis: {
+                        show: false,
+                        type: 'category',
+                        data: ['1', '2', '3', '4', '5', '6']
+                    },
+                    yAxis: {
+                        show: false,
+                        type: 'value',
+                    },
+                    grid: {
+                        bottom: '70%',
+                    },
+                    series: [
+                        {
+                            name: '数量',
+                            data: [3800, 4644, 3210, 1314, 2333, 6974],
+                            type: 'line',
+                            smooth: true,
+                            showSymbol: false,
+                            areaStyle: {
+                                color: '#B9D3EE',
+                            },
+                            emphasis: {
+                                disabled: true
+                            },
+                            lineStyle: {
+                                color: '#387fcb',
+                            }
+                        }
+                    ]
+                }
+                DailyTotalAmount_Line_Chart_Option && DailyTotalAmount_Line_Chart.setOption(DailyTotalAmount_Line_Chart_Option);
+            </script>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card shadow-sm mb-2">
+            <div class="card-body">
+              <div class="text-muted" style="font-size: 15px">
+                <strong>策略</strong>
+              </div>
+              <div>待开发...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid center">
+      <div class="row px-5 mx-5 m-3">
+        <div class="col-lg-6">
+          <div class="card shadow-sm mb-2">
+            <div class="card-body">
+              <div class="text-muted mb-2" style="font-size: 16px">
+                <strong>饰品类型</strong>
+              </div>
+              <div class="mb-4">
+                <small class="text-muted" style="font-size: 14px">服务器在获取数据的过程可能存在些延迟, 导致更新较慢, 请耐心等待.</small>
+              </div>
+              <!-- 今日饰品类型数量 -->
+              <div id="TodayJewelryType_line" style="height: 350px"></div>
+              <script type="text/javascript">
+                  var TodayJewelryType_Line_Chart = echarts.init(document.getElementById('TodayJewelryType_line'), 'westeros')
+                  var TodayJewelryType_Line_Chart_Option = {
+                      tooltip: {
+                          trigger: 'axis'
+                      },
+                      legend: {
+                          data: ['M9刺刀', '爪子刀', '锯齿爪刀', '刺刀', '蝴蝶刀']
+                      },
+                      grid: {
+                          left: '3%',
+                          right: '4%',
+                          bottom: '2%',
+                          containLabel: true
+                      },
+                      xAxis: {
+                          type: 'category',
+                          boundaryGap: false,
+                          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                      },
+                      yAxis: {
+                          type: 'value',
+                      },
+                      series: [
+                          {
+                              name: 'M9刺刀',
+                              type: 'line',
+                              stack: 'Total',
+                              smooth: true,
+                              showSymbol: false,
+                              data: [120, 132, 101, 134, 90, 230, 210],
+                              lineStyle: {
+                                  width: 2.5,
+                                  shadowColor: 'rgba(0, 0, 0, 0.09)',
+                                  shadowBlur: 3,
+                                  shadowOffsetY: 5
+                              },
+                              emphasis: {
+                                disabled: true
+                              },
+                          },
+                          {
+                              name: '爪子刀',
+                              type: 'line',
+                              stack: 'Total',
+                              smooth: true,
+                              showSymbol: false,
+                              data: [220, 182, 191, 234, 290, 330, 310],
+                              lineStyle: {
+                                  width: 2.5,
+                                  shadowColor: 'rgba(0, 0, 0, 0.09)',
+                                  shadowBlur: 3,
+                                  shadowOffsetY: 5
+                              },
+                              emphasis: {
+                                disabled: true
+                              },
+                          },
+                          {
+                              name: '锯齿爪刀',
+                              type: 'line',
+                              stack: 'Total',
+                              smooth: true,
+                              showSymbol: false,
+                              data: [150, 232, 201, 154, 190, 330, 410],
+                              lineStyle: {
+                                  width: 2.5,
+                                  shadowColor: 'rgba(0, 0, 0, 0.09)',
+                                  shadowBlur: 3,
+                                  shadowOffsetY: 5
+                              },
+                              emphasis: {
+                                disabled: true
+                              },
+                          },
+                          {
+                              name: '刺刀',
+                              type: 'line',
+                              stack: 'Total',
+                              smooth: true,
+                              showSymbol: false,
+                              data: [320, 332, 301, 334, 390, 330, 320],
+                              lineStyle: {
+                                  width: 2.5,
+                                  shadowColor: 'rgba(0, 0, 0, 0.09)',
+                                  shadowBlur: 3,
+                                  shadowOffsetY: 5
+                              },
+                              emphasis: {
+                                disabled: true
+                              },
+                          },
+                          {
+                              name: '蝴蝶刀',
+                              type: 'line',
+                              stack: 'Total',
+                              smooth: true,
+                              showSymbol: false,
+                              data: [820, 932, 901, 934, 1290, 1330, 1320],
+                              lineStyle: {
+                                  width: 2.5,
+                                  shadowColor: 'rgba(0, 0, 0, 0.09)',
+                                  shadowBlur: 3,
+                                  shadowOffsetY: 5
+                              },
+                              emphasis: {
+                                disabled: true
+                              },
+                          }
+                      ]
+                  };
+                  TodayJewelryType_Line_Chart_Option && TodayJewelryType_Line_Chart.setOption(TodayJewelryType_Line_Chart_Option)
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card shadow-sm mb-2">
+            <div class="card-body">
+              <div class="text-muted mb-2" style="font-size: 16px">
+                <strong>饰品分布情况</strong>
+              </div>
+              <div class="mb-4">
+                <small class="text-muted" style="font-size: 14px">今日饰品获取数量分布情况.</small>
+              </div>
+              <!-- 今日饰品分布情况 -->
+              <div id="Jewelry_Distribution_Today" style="height: 350px"></div>
+              <script type="text/javascript">
+                  var Jewelry_Distribution_Today_Chart = echarts.init(document.getElementById('Jewelry_Distribution_Today'), 'westeros')
+                  var Jewelry_Distribution_Today_Chart_Option = {
+                      tooltip: {
+                          trigger: 'axis',
+                          axisPointer: {
+                              type: 'shadow'
+                          }
+                      },
+                      grid: {
+                          left: '3%',
+                          right: '4%',
+                          bottom: '2%',
+                          top: '6%',
+                          containLabel: true
+                      },
+                      xAxis: {
+                          type: 'category',
+                          data: ['M9刺刀', '爪子刀', '锯齿爪刀', '刺刀', '蝴蝶刀'],
+                      },
+                      yAxis: {
+                          type: 'value'
+                      },
+                      series: [
+                          {
+                              data: [120, 200, 150, 80, 70, 110, 130],
+                              type: 'bar',
+                          }
+                      ]
+                  }
+                  Jewelry_Distribution_Today_Chart_Option && Jewelry_Distribution_Today_Chart.setOption(Jewelry_Distribution_Today_Chart_Option)
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">2</div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3</div>
+</div>
+<!-- 页面内容 -->
+<script>
+    window.addEventListener("resize", function () {
+        DailyQuantitt_Line_Chart.resize();
+        DailyTotalAmount_Line_Chart.resize();
+        TodayJewelryType_Line_Chart.resize();
+        Jewelry_Distribution_Today_Chart.resize()
+    })
+</script>
+</body>

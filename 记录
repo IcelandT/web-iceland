@@ -1,0 +1,6 @@
+flask db init 初始化数据库
+flask db migrate  创建迁移文件
+flask db upgrade  映射到数据库当中
+
+
+href跳转页面中, 在a标签中添加 target="_blank"则会打开一个新的标签页
